@@ -1,0 +1,26 @@
+{
+  "name": "toDoList",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon --env-file .env server.js",
+    "devStart": "nodemon --env-file dev.env server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "type": "module",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cookie-parser": "^1.4.7",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0",
+    "pg": "^8.15.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}

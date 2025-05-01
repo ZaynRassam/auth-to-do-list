@@ -1,0 +1,11 @@
+<%- include('./partials/header') %>
+<body>
+    <%- include('./partials/nav-bar') %>
+    <h2>
+        This is an admin only page.
+    </h2>
+    <p>To showcase role-based access, demote your role to USER:</p><br>
+    <form action="/users/change-role" method="post">
+    <button>User</button>
+</body>
+</html>

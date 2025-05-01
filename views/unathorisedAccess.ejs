@@ -1,0 +1,14 @@
+<%- include('./partials/header') %>
+<body>
+    <%- include('./partials/nav-bar') %>
+    <h2>You are unathorised to view this page</h2>
+    <% if (user) {%>
+        <p>To showcase role-based access, promote your role to ADMIN:</p><br>
+        <form action="/users/change-role" method="post">
+            <button>Admin</button>
+        </form>
+    <% } else { %>
+        <p>To showcase role-based access, please login and try again</p><br>
+    <% } %>
+</body>
+</html>

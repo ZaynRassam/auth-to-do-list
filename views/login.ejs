@@ -1,0 +1,32 @@
+<%- include('./partials/header') %>
+<body>
+    <%- include('./partials/nav-bar') %>
+    <h2>Please LOGIN below</h2>
+    <% if (typeof userCreated !== 'undefined' && userCreated || false) { %>
+        <p>Account successfully created</p>
+    <% } %>
+    <% if (typeof changedPassword !== 'undefined' && changedPassword || false) { %>
+        <p>Password successfully changed</p>
+    <% } %>
+    <% if (typeof userDeleted !== 'undefined' && userDeleted || false) { %>
+        <p>User successfully deleted</p>
+    <% } %>
+    <form action="/users/login" method="post">
+        <label type="text" for="username">Username:</label><br>
+        <input type="text" id="username" name="username" placeholder="Enter Username" value="<%= locals.attemptedUsername || null%>"><br>
+        <label type="text" for="password">Password:</label><br>
+        <input type="password" id="password" name="password" placeholder="Enter Password" value="<%= locals.attemptedPassword || null%>"><br>
+        <button type="submit">Login</button>
+    </form>   
+    <% if (wrongCredentials || false) { %>
+        <p>Wrong username or password</p>
+    <% } %>
+    <form action="/users/update-password">
+        <button>Update Password</button>
+    </form>
+    <hr>
+    <form action="/users/delete-user" method="get">
+        <button>Delete User</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<%- include('./partials/header') %>
+<body>
+    <%- include('./partials/nav-bar') %>
+    <h2>DELETE user below</h2>
+    <form action="/users/delete-user" method="post">
+        <label type="text" for="username">Username:</label><br>
+        <input type="text" id="username" name="username" placeholder="Enter Username" value="<%= locals.attemptedUsername || null%>"><br>
+        <label type="text" for="password">Password:</label><br>
+        <input type="text" id="password" name="password" placeholder="Enter Password" value="<%= locals.attemptedPassword || null%>"><br>
+        <button type="submit">Delete account</button>
+    </form>
+    <% if (typeof wrongCredentials !== 'undefined' && wrongCredentials || false) { %>
+        <p>Wrong username or password</p>
+    <% } %>
+    <form action="/users/login">
+        <button>Back to login</button>
+    </form>
+</body>
+</html>

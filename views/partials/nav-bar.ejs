@@ -1,0 +1,21 @@
+<div class="nav-bar">
+    <nav>
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/to-do-list">To Do List</a>
+            <a href="/admin">Admin</a>
+            <% if (user) { %>
+                <p id="loggedInAs">Logged in as: <%= user.username %> (<%= user.role %>)</p>
+                <form action="/users/logout">
+                    <button>Logout</button>
+                </form>
+            <% } else { %> 
+                <form action="/users/login">
+                    <button>Login</button>
+                </form>
+                <form action="/users/signup">
+                    <button>Sign up</button>
+                </form>
+            <% } %>
+    </nav>
+</div>

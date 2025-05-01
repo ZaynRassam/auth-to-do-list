@@ -1,0 +1,19 @@
+<%- include('./partials/header') %>
+<body>
+    <%- include('./partials/nav-bar') %>
+    <h2>Please SIGN UP below</h2>
+    <% if (typeof usernameTaken !== 'undefined' && usernameTaken || false) { %>
+        <p>Username already taken</p>
+    <% } %>
+    <form action="/users/signup" method="post">
+        <label type="text" for="username">Username:</label><br>
+        <input type="text" id="username" name="username" placeholder="Enter Username" value="<%= locals.attemptedUsername || null%>" minlength="3" required="true" pattern="^\S+$" title="No whitespace allowed."><br>
+        <label type="text" for="password">Password:</label><br>
+        <input type="password" id="password" name="password" placeholder="Enter Password" value="<%= locals.attemptedPassword || null%>" minlength="3" required="true" pattern="^\S+$" title="No whitespace allowed."><br>
+        <button type="submit">Create account</button>
+    </form>
+    <form action="/users/login">
+        <button>Back to login</button>
+    </form>
+</body>
+</html>
