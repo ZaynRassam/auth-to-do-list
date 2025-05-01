@@ -1,5 +1,5 @@
-import { queryAll } from '../public/postgres/postgres.js'
-import { insertUser, changeUserRole, updateUserPassword, deleteUser} from '../public/postgres/postgresUsers.js'
+import { queryAll, insertRecord, deleteRecord } from '../public/postgres/postgres.js'
+import { changeUserRole, updateUserPassword} from '../public/postgres/postgresUsers.js'
 import { authenticateJWT, generateJWT, authorizeRoles } from '../public/authentication/jwt.js'
 import bcrpyt from "bcryptjs"
 import express from 'express'
@@ -60,13 +60,14 @@ router.post('/signup', async function(req,res){
     const reqUsername = req.body.username.toLowerCase()
     const reqPassword = req.body.password
     const hashedPassword = await bcrpyt.hash(reqPassword, 10)
+    const dataObj = {username: reqUsername, hashed_password: hashedPassword, role: "user"}
 
     allUsers = await queryAll(process.env.USER_TABLE_NAME)
 
     const dbUser = allUsers.find(dbUser => dbUser.username === reqUsername)
     if (dbUser == null) {
         try {
-            insertUser(reqUsername, hashedPassword, 'user')
+            insertRecord(process.env.USER_TABLE_NAME, dataObj)
             res.status(201).render("login.ejs", {user: req.user, userCreated: true, attemptedUsername: reqUsername, attemptedPassword: reqPassword, wrongCredentials: false})
         } catch (error) {
             console.log(error)
@@ -114,6 +115,7 @@ router.get('/delete-user', authenticateJWT, authorizeRoles("admin"), function(re
 router.post('/delete-user', authenticateJWT, authorizeRoles("admin"), async function(req, res){
     const reqUsername = req.body.username.toLowerCase()
     const reqPassword = req.body.password
+    const dataObj = {username: reqUsername}
 
     allUsers = await queryAll(process.env.USER_TABLE_NAME)
     const dbUser = allUsers.find(dbUser => dbUser.username === reqUsername)
@@ -122,8 +124,8 @@ router.post('/delete-user', authenticateJWT, authorizeRoles("admin"), async func
     }
     try {   
         if (await bcrpyt.compare(reqPassword, dbUser.hashed_password) || await bcrpyt.compare(reqPassword, hashed_adminpassword)){
-            deleteUser(reqUsername)
-            res.status(201).render("login.ejs", {user: req.user, userDeleted: true, changedPassword: false, userCreated: false, wrongCredentials: false})
+            deleteRecord(process.env.USER_TABLE_NAME, dataObj)
+            res.status(201).render("index.ejs", {user: req.user})
         } else {
             return res.status(400).render("deleteUser.ejs", {user: req.user, userDeleted: false, userCreated: false, attemptedUsername: reqUsername, attemptedPassword: reqPassword, wrongCredentials: true})
         }
