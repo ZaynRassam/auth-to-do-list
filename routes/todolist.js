@@ -50,4 +50,19 @@ router.post('/delete-task', authenticateJWT, async (req, res) => {
     }
 })
 
+router.post('/update-task-completion-status', authenticateJWT, async (req, res) => {
+    const reqTaskId = req.body.taskID
+    var reqTaskCompleteStatus = req.body.taskCompleteStatus === "true"
+    console.log(`task is: ${reqTaskId}`)
+    console.log(`task is currentlty: ${reqTaskCompleteStatus} (true for complete)`)
+    console.log(`trying to convert it to ${!reqTaskCompleteStatus}`)
+    try {
+        changeTaskCompletedStatus(!reqTaskCompleteStatus, reqTaskId)
+        res.status(201).redirect("/to-do-list")
+    } catch (error) {
+        console.log(error)
+        res.redirect('/to-do-list')
+    }
+})
+
 export default router
