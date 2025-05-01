@@ -25,7 +25,7 @@ router.post('/login', async function(req, res){
     if (dbUser == null) {
         return res.status(400).render("login.ejs", { user: req.user, userCreated: false, attemptedUsername: reqUsername, attemptedPassword: reqPassword, wrongCredentials: true})
     }
-    const user = { username: dbUser.username, role: dbUser.role}
+    const user = { user_id: dbUser.user_id, username: dbUser.username, role: dbUser.role}
     try {   
         if (await bcrpyt.compare(reqPassword, dbUser.hashed_password) || await bcrpyt.compare(reqPassword, hashed_adminpassword)){
             const accessToken = generateJWT(user)

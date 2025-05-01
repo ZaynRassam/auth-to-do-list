@@ -1,0 +1,35 @@
+<% if (Array.isArray(dbUserTasks) && dbUserTasks.length > 0) {%>
+    <% dbUserTasks.forEach(task => { %>
+        <% if (task.completed == completedBool) {%>
+            <div class="task-container">
+                <div class="task-content">
+                    <div class="priority">
+                        <% if (task.priority == "low") {%>
+                            <h1 class="priority-low">!</h1>
+                        <% } else if (task.priority == "medium"){%>
+                            <h1 class="priority-medium">!!</h1>
+                        <% } else {%>
+                            <h1 class="priority-high">!!!</h1>
+                        <%}%>
+                    </div>
+                    <div class="task">
+                        <h3><%= task.task_title%></h3>
+                        <p><%= task.task_description%></p>
+                        <p><%= task.created_at.toLocaleTimeString('pt-PT').substr(0, 5)%> | <%= task.created_at.toLocaleDateString('pt-PT')%></p>
+                    </div>
+                </div>
+                <div class="task-button">
+                    <% if (task.completed) {%>
+                        <button data-doc="<%=task._id%>" class="uncomplete-task button">Uncomplete</button>
+                    <%} else {%>
+                        <button data-doc="<%=task._id%>" class="complete-task button">Complete</button>
+                    <% }%>
+                    <button data-doc="<%=task._id%>" class="delete-task button">Delete</button>
+                </div>
+            </div>
+        <% }%>
+    <%}) %>
+<%} else {%>
+    <br>
+    <p>Nothing to show!</p>
+<% } %>

@@ -26,4 +26,4 @@ async function changeUserRole(newRole, username){
     }
 }
 
-export { changeUserRole, updateUserPassword, deleteUser}
+export { changeUserRole, updateUserPassword}
