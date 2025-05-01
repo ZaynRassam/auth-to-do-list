@@ -1,26 +1,30 @@
 <%- include('./partials/header') %>
 <body>
     <%- include('./partials/nav-bar') %>
-    <div class="tasks content">  
-        <div class="task-display">
-                <h2 class="all-tasks">All Tasks</h2>    
-                <br>
-                <form action="/to-do-list/create-task">
-                    <button>Add Task</button>
-                </form> 
-        </div>
-        <br>
-        <% if (Array.isArray(dbUserTasks) && dbUserTasks.length > 0) {%>
-            <h3>To Do:</h3>
-            <%- include('./partials/todolistsegment.ejs', {completedBool: false}) %>
+    <% if (user) { %>
+        <div class="tasks content">  
+            <div class="task-display">
+                    <h2 class="all-tasks">All Tasks</h2>    
+                    <br>
+                    <form action="/to-do-list/add-task">
+                        <button>Add Task</button>
+                    </form> 
+            </div>
+            <br>
+            <% if (Array.isArray(dbUserTasks) && dbUserTasks.length > 0) {%>
+                <h3>To Do:</h3>
+                <%- include('./partials/todolistsegment.ejs', {completedBool: false}) %>
 
-            <br>
-            <h3>Done:</h3>
-            <%- include('./partials/todolistsegment.ejs', {completedBool: true}) %>
-        <%} else {%>
-            <br>
-            <p>Nothing to show!</p>
-        <% } %>
-    </div>
+                <br>
+                <h3>Done:</h3>
+                <%- include('./partials/todolistsegment.ejs', {completedBool: true}) %>
+            <%} else {%>
+                <br>
+                <p>Nothing to show!</p>
+            <% } %>
+        </div>
+    <% } else { %>
+        <h2>Login to see your To Do List</h2>
+    <% } %>
 </body>
 </html>

@@ -1,0 +1,19 @@
+<%- include('./partials/header') %>
+<body>
+    <%- include('./partials/nav-bar') %>
+    <h2>Add a task below</h2>
+    <form action="/to-do-list/add-task" method="post">
+        <label type="text" for="taskTitle">Task:</label><br>
+        <input type="text" id="taskTitle" name="taskTitle" placeholder="Enter Task" required><br>
+        <label type="text" for="taskDescription">Description:</label><br>
+        <input type="text" id="taskDescription" name="taskDescription" placeholder="Enter Description"><br>
+        <label type="text" for="taskPriority">Priority:</label><br>
+        <select id="taskPriority" name="taskPriority">
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
+        <button type="submit">Create Task</button>
+    </form>
+</body>
+</html>

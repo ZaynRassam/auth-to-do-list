@@ -24,7 +24,11 @@
                     <%} else {%>
                         <button data-doc="<%=task._id%>" class="complete-task button">Complete</button>
                     <% }%>
-                    <button data-doc="<%=task._id%>" class="delete-task button">Delete</button>
+                    <form action="/to-do-list/delete-task" method="post">
+                        <label for="taskDelete"></label>
+                        <input type="hidden" id="taskDelete" name="taskDelete" value=<%=task.task_id%>>
+                        <button type="submit">Delete</button>
+                    </form>
                 </div>
             </div>
         <% }%>
