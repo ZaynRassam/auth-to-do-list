@@ -16,7 +16,6 @@ router.get('/', authenticateJWT, async function(req,res){
 })
 
 router.get('/add-task', authenticateJWT, function(req, res){
-    console.log("add task page")
     if (!req.user){
         return res.redirect('/to-do-list')
     }
@@ -38,8 +37,7 @@ router.post('/add-task', authenticateJWT, async function(req, res){
 })
 
 router.post('/delete-task', authenticateJWT, async (req, res) => {
-    const reqTaskDeleteID = req.body.taskDelete
-    const dataObj = {task_id: reqTaskDeleteID}
+    const dataObj = {task_id: req.body.taskIdDelete}
     try {
         deleteRecord(process.env.TASK_TABLE_NAME, dataObj)
         console.log(`deleting record with task id: ${dataObj.task_id}`)
@@ -53,9 +51,6 @@ router.post('/delete-task', authenticateJWT, async (req, res) => {
 router.post('/update-task-completion-status', authenticateJWT, async (req, res) => {
     const reqTaskId = req.body.taskID
     var reqTaskCompleteStatus = req.body.taskCompleteStatus === "true"
-    console.log(`task is: ${reqTaskId}`)
-    console.log(`task is currentlty: ${reqTaskCompleteStatus} (true for complete)`)
-    console.log(`trying to convert it to ${!reqTaskCompleteStatus}`)
     try {
         changeTaskCompletedStatus(!reqTaskCompleteStatus, reqTaskId)
         res.status(201).redirect("/to-do-list")

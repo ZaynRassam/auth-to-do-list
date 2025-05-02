@@ -12,5 +12,6 @@ CREATE TABLE todolist (
     task_title VARCHAR(100) NOT NULL,
     task_description VARCHAR(255),
     priority VARCHAR(10) NOT null,
+    completed BOOLEAN DEFAULT false,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

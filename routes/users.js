@@ -20,7 +20,6 @@ router.post('/login', async function(req, res){
     const reqPassword = req.body.password
     
     allUsers = await queryAll(process.env.USER_TABLE_NAME)
-    console.log(allUsers)
     const dbUser = allUsers.find(dbUser => dbUser.username === reqUsername)
     if (dbUser == null) {
         return res.status(400).render("login.ejs", { user: req.user, userCreated: false, attemptedUsername: reqUsername, attemptedPassword: reqPassword, wrongCredentials: true})

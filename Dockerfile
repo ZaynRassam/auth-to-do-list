@@ -12,4 +12,4 @@ COPY --chown=node:node . .
 
 EXPOSE 3000
 
-CMD ["sh", "-c", "sleep 10 && npm start"]
+CMD ["sh", "-c", "sleep 5 && npm start"]
